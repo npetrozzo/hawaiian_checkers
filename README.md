@@ -1,0 +1,13 @@
+# hawaiian_checkers
+Konane-playing program using a min-max algorithm. Project by Nicole Petrozzo and Rose Lin for Bryn Mawr CS372
+
+
+Rose Lin & Nicole Petrozzo
+Artificial Intelligence : Lab #4
+
+We wrote a Python program that allows a user to play a game of Konane against a computer opponent, who uses a min-max algorithm with alpha-beta pruning to make intelligent decisions. We needed to make 4 classes to create this program:
+1. A GameBoard class, which has a “board” parameter representing the actual state of the board as a matrix made of X’s, O’s, and empty spaces (represented by a period). There is an important method for this class called updateBoard() that takes in the coordinates of the piece being moved, the coordinates of where it is moving to, and the identity of the piece (dark or light). It changes the value of the board parameter and returns it. This function accounts for moves with multiple jumps as well. There are also methods that return the list of dark pieces, the list of light pieces, and the list of empty pieces; these methods are used in the Player class when determining available legal moves.
+2. A Player class, which has an identity of either light or dark. There are two different methods to generate the first move, depending on if the Player is light or dark. Then there is the generic availableMoves() function which takes a GameBoard and the identity of the player, and returns a dictionary of available legal moves (where the key is a starting position, and the value is a list of ending positions). Player also has a minimax() method which takes the player’s identity, a gameBoard, and a search depth limit, and then, using alpha-beta pruning returns what it evaluates to be the best possible move. The algorithm traverses a tree structure that is implemented using a Node class. Minimax is based on an evaluation() function that returns a score for a GameBoard based on the differences between the number of light pieces and that of dark pieces. There is also a tellMinMax() method that, given a level (an integer), will return if that level is “Min” or “Max”. For example, given the current board, we convert it into a node that should also be the root of the minimax tree. The root is counted as level 0. After we generate the possible move for a specific player and convert them into nodes with the updated game board, these nodes are counted as level 1. Thus level that is odd is considered as max, otherwise, mix.
+3. A Node class, which takes in a game board and player identity and level. The node objects are used in minimax algorithm.
+4. A Util class, which defines a queue. The queue data structure is used in the minimax algorithm. 
+
