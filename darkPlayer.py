@@ -83,7 +83,12 @@ class Player:
                     newID = LIGHTPLAYER
                 else:
                     newID = DARKPLAYER
-                bestValue, move = self.minimax(newID,currentNode.gameBoard,depth_limit,alpha, beta,currentNode.move,currentNode.level)
+
+                # check if someone won
+                if self.win(currentNode.gameBoard):
+                    bestValue = 9999
+                else:
+                    bestValue, move = self.minimax(newID,currentNode.gameBoard,depth_limit,alpha, beta,currentNode.move,currentNode.level)
                 move =currentNode.move
                 if self.win(currentNode.gameBoard):
                     bestValue = 9999
