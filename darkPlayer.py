@@ -42,6 +42,7 @@ class Player:
         if level == depth_limit:
             return self.evaluation(gameBoard,identity), move
         possibleMoves = self.availableMoves(gameBoard, identity)
+        # case where no moves are left
         frontier = util.Queue()
         currentState = Node(gameBoard,None,level,move)
         for start in possibleMoves.keys():
@@ -60,10 +61,13 @@ class Player:
                     newID = LIGHTPLAYER
                 else:
                     newID = DARKPLAYER
-                bestValue, move = self.minimax(newID, currentNode.gameBoard,depth_limit, alpha, beta, currentNode.move,currentNode.level)
-                move = currentNode.move
+
+                # check if someone won 
                 if self.win(currentNode.gameBoard):
                     bestValue = -9999
+                else:
+                    bestValue, move = self.minimax(newID, currentNode.gameBoard,depth_limit, alpha, beta, currentNode.move,currentNode.level)
+                move = currentNode.move
                 if bestValue > alpha:
                     alpha = bestValue
                     bestMove = move
@@ -243,7 +247,7 @@ class Player:
                 self.jumpToSouth(result, game, identity, jumpOver, emptyPosition)
         return result
 
-        def testLegalMove(self, gameBoard, identity, start, end):
+    def testLegalMove(self, gameBoard, identity, start, end):
         '''
         Returns whether a given move is legal or not.
         '''
